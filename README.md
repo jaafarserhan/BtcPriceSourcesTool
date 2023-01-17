@@ -1,9 +1,12 @@
 # BtcPriceSourcesTool
 
 This project has been developed using the below techs:
-1- Sqlite with entity framwork code-first approach
+1- Sqlite with entity framwork code-first approach.
+
 2- .NET Core 6.0 
+
 3- It contains 4 APIs as an end points for Bitcoin price on-demand. tracking 
+
 4- I used MVC Design pattern in addition to the repository pattern, 
 --------------------------------------------------------
 
