@@ -3,6 +3,7 @@ using BtcPriceSourcesTool.Models;
 using BtcPriceSourcesTool.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BtcPriceSourcesDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddMvc().AddJsonOptions(o => 
+{
+    o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 builder.Services.AddSingleton<ISourceRepository, SourceRepository>();
 
 builder.Services.AddSingleton<IBtcPriceResponseRepository, BtcPriceResponseRepository>();
