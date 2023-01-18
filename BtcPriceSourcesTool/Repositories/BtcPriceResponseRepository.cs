@@ -35,7 +35,8 @@ namespace BtcPriceSourcesTool.Repositories
         {
             try
             {
-                BtcPriceResponse BPR = new BtcPriceResponse();
+                BtcPriceResponse BPR = null;
+                BPR = new BtcPriceResponse();
                 Source src = new Source();
                 src = ctx.Sources.Where(s => s.SourceId == SourceID).FirstOrDefault();
                 string res = await GetBtcResponseFromSource(src.SourceURI);
@@ -43,10 +44,10 @@ namespace BtcPriceSourcesTool.Repositories
                 // BtcPriceResponse BPR = new BtcPriceResponse();
                 BPR.Response = res;
                 BPR.SourceId = SourceID;
-                BPR.Source = src;//ctx.Sources.Where(s => s.SourceId == SourceID).FirstOrDefault();
-                
+                var s = ctx.Sources.Where(s => s.SourceId == SourceID).FirstOrDefault();
+                BPR.Source = s;
                 ctx.BtcPriceResponses.Add(BPR);
-                ctx.SaveChangesAsync();  
+                ctx.SaveChangesAsync();
                 
                 return BPR;
             
@@ -56,7 +57,6 @@ namespace BtcPriceSourcesTool.Repositories
                 return null;
             }
         }
-
 
 
         public async Task<String> GetBtcResponseFromSource(string url) {
